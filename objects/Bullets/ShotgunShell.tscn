@@ -15,7 +15,6 @@ animations = [ {
 extents = Vector2( 4.5, 2.5 )
 
 [node name="ShotgunShell" instance=ExtResource( 1 )]
-collision_layer = 0
 friction = 500.0
 damage = 1.0
 move_speed = 600
@@ -28,6 +27,7 @@ frames = SubResource( 1 )
 
 [node name="HurtBox" parent="." index="2"]
 position = Vector2( 2.5, 0.5 )
+script = null
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2( 0.453003, 0.490944 )
