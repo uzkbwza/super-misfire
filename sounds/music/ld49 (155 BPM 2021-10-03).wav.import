@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ld49 (155 BPM 2021-10-03).wav-afa36c8f3ee80e6bfa81b7fb86b8650d.sample"
+
+[deps]
+
+source_file="res://sounds/music/ld49 (155 BPM 2021-10-03).wav"
+dest_files=[ "res://.import/ld49 (155 BPM 2021-10-03).wav-afa36c8f3ee80e6bfa81b7fb86b8650d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

@@ -1,0 +1,135 @@
+[gd_scene load_steps=16 format=2]
+
+[ext_resource path="res://objects/BaseObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/EnemyCharacter.gd" type="Script" id=2]
+[ext_resource path="res://sprites/baddie.png" type="Texture" id=3]
+[ext_resource path="res://sprites/baddie/baddie_walk.png" type="Texture" id=4]
+[ext_resource path="res://components/AiControl.gd" type="Script" id=5]
+[ext_resource path="res://objects/Enemy/States/Alive.gd" type="Script" id=6]
+[ext_resource path="res://objects/Enemy/States/Dead.gd" type="Script" id=7]
+[ext_resource path="res://sprites/baddie/baddie_dead.png" type="Texture" id=8]
+[ext_resource path="res://objects/Enemy/States/BananaPeelSlip.gd" type="Script" id=9]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.07571
+height = 12.5
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 24, 24 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 24, 0, 24, 24 )
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=5]
+radius = 1.73209
+height = 13.3517
+
+[sub_resource type="CircleShape2D" id=6]
+radius = 175.0
+
+[node name="EnemyCharacter" instance=ExtResource( 1 )]
+collision_layer = 4
+script = ExtResource( 2 )
+angular_fric = 0.1
+accel_speed = 1000.0
+max_speed = 120
+can_be_damaged = true
+max_hp = 3
+
+[node name="Alive" type="Node" parent="StateMachine" index="0"]
+script = ExtResource( 6 )
+
+[node name="BananaPeelSlip" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 9 )
+
+[node name="Tween" type="Tween" parent="StateMachine/BananaPeelSlip" index="0"]
+
+[node name="Timer" type="Timer" parent="StateMachine/BananaPeelSlip" index="1"]
+wait_time = 0.8
+one_shot = true
+
+[node name="Dead" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 7 )
+
+[node name="HurtBox" parent="." index="1"]
+position = Vector2( 0, -1 )
+z_index = 1
+shape = SubResource( 2 )
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="2"]
+position = Vector2( -0.1875, -1.6875 )
+frames = SubResource( 1 )
+animation = "idle"
+playing = true
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="3"]
+enabled = true
+cast_to = Vector2( 200, 0 )
+collision_mask = 3
+
+[node name="AiCycle" type="Timer" parent="." index="4"]
+wait_time = 0.5
+
+[node name="AiControl" type="Node2D" parent="." index="5"]
+script = ExtResource( 5 )
+
+[node name="DebugLabel" type="Label" parent="." index="6"]
+visible = false
+margin_left = -20.0238
+margin_top = -22.1786
+margin_right = 19.9762
+margin_bottom = -8.17864
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Line2D" type="Line2D" parent="." index="7"]
+visible = false
+width = 5.0
+
+[node name="PushBox" type="StaticBody2D" parent="." index="8" groups=[
+"player",
+]]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushBox" index="0"]
+shape = SubResource( 5 )
+
+[node name="PlayerSearch" type="Area2D" parent="." index="9"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerSearch" index="0"]
+visible = false
+shape = SubResource( 6 )
+
+[node name="AiStartupDelay" type="Timer" parent="." index="10"]
+one_shot = true
+
+[connection signal="die" from="." to="StateMachine/Alive" method="_on_EnemyCharacter_die"]
+[connection signal="timeout" from="StateMachine/BananaPeelSlip/Timer" to="StateMachine/BananaPeelSlip" method="_on_Timer_timeout"]
+[connection signal="frame_changed" from="Sprite" to="." method="_on_Sprite_frame_changed"]
+[connection signal="timeout" from="AiCycle" to="." method="_on_AiCycle_timeout"]
+[connection signal="body_entered" from="PlayerSearch" to="." method="_on_PlayerSearch_body_entered"]
+[connection signal="timeout" from="AiStartupDelay" to="." method="_on_AiStartupDelay_timeout"]

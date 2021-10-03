@@ -1,0 +1,80 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://objects/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/confetti-sheet.png" type="Texture" id=2]
+[ext_resource path="res://objects/Bullets/Confetti.gd" type="Script" id=3]
+[ext_resource path="res://code/VariableSound2D.gd" type="Script" id=4]
+[ext_resource path="res://sounds/Laser_shoot 22.wav" type="AudioStream" id=5]
+
+[sub_resource type="RayShape2D" id=5]
+length = 40.0752
+
+[sub_resource type="CanvasItemMaterial" id=4]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.481959, 0.805682 ), -0.77428, -0.77428, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+curve = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+flag_disable_z = true
+spread = 28.24
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 318.81
+initial_velocity_random = 1.0
+angular_velocity = 91.76
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = -100.0
+radial_accel = -100.0
+radial_accel_random = 1.0
+tangential_accel_random = 1.0
+damping = 39.22
+angle = 720.0
+angle_random = 1.0
+scale = 1.5
+scale_random = 1.0
+scale_curve = SubResource( 2 )
+anim_offset = 1.0
+anim_offset_random = 1.0
+
+[node name="Bullet" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+damage = 1
+move_speed = 5
+
+[node name="Sprite" parent="." index="0"]
+visible = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = -1.5708
+shape = SubResource( 5 )
+
+[node name="Particles2D" type="Particles2D" parent="." index="5"]
+material = SubResource( 4 )
+emitting = false
+amount = 64
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 3 )
+texture = ExtResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." index="6"]
+stream = ExtResource( 5 )
+bus = "Fx"
+script = ExtResource( 4 )
+pitch_variation = 0.05
+
+[node name="DisableTimer" type="Timer" parent="." index="7"]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="DisableTimer" to="." method="_on_DisableTimer_timeout"]

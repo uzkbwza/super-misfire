@@ -1,0 +1,748 @@
+[gd_scene load_steps=57 format=2]
+
+[ext_resource path="res://Game.gd" type="Script" id=1]
+[ext_resource path="res://objects/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/crosshair.png" type="Texture" id=3]
+[ext_resource path="res://code/DebugLabel.gd" type="Script" id=4]
+[ext_resource path="res://TileSet.tres" type="TileSet" id=5]
+[ext_resource path="res://Nav2D.gd" type="Script" id=6]
+[ext_resource path="res://sprites/heart1.png" type="Texture" id=7]
+[ext_resource path="res://sprites/base_bullet.png" type="Texture" id=8]
+[ext_resource path="res://sprites/heart3.png" type="Texture" id=9]
+[ext_resource path="res://sprites/heart6.png" type="Texture" id=10]
+[ext_resource path="res://sprites/heart7.png" type="Texture" id=11]
+[ext_resource path="res://sprites/heart5.png" type="Texture" id=12]
+[ext_resource path="res://sprites/heart2.png" type="Texture" id=13]
+[ext_resource path="res://sprites/heart4.png" type="Texture" id=14]
+[ext_resource path="res://sprites/heart8.png" type="Texture" id=15]
+[ext_resource path="res://sprites/heart9.png" type="Texture" id=16]
+[ext_resource path="res://sprites/heart12.png" type="Texture" id=17]
+[ext_resource path="res://sprites/heart13.png" type="Texture" id=18]
+[ext_resource path="res://sprites/heart11.png" type="Texture" id=19]
+[ext_resource path="res://sprites/heart10.png" type="Texture" id=20]
+[ext_resource path="res://Map.gd" type="Script" id=21]
+[ext_resource path="res://LevelColors.gd" type="Script" id=22]
+[ext_resource path="res://tilemap_material.tres" type="Material" id=23]
+[ext_resource path="res://sprites/ur die.png" type="Texture" id=24]
+[ext_resource path="res://sprites/again3.png" type="Texture" id=25]
+[ext_resource path="res://sprites/again2.png" type="Texture" id=26]
+[ext_resource path="res://sprites/again1.png" type="Texture" id=27]
+[ext_resource path="res://sprites/black.png" type="Texture" id=28]
+[ext_resource path="res://sounds/Explosion 102.wav" type="AudioStream" id=29]
+[ext_resource path="res://sounds/Hit_hurt 29.wav" type="AudioStream" id=30]
+[ext_resource path="res://sprites/terrain/bg.png" type="Texture" id=31]
+[ext_resource path="res://sprites/kills.png" type="Texture" id=32]
+[ext_resource path="res://prstartk.ttf" type="DynamicFontData" id=33]
+[ext_resource path="res://sprites/floor.png" type="Texture" id=34]
+[ext_resource path="res://sprites/quit1.png" type="Texture" id=35]
+[ext_resource path="res://sprites/unstuck2.png" type="Texture" id=36]
+[ext_resource path="res://sprites/unstuck1.png" type="Texture" id=37]
+[ext_resource path="res://sprites/unstuck3.png" type="Texture" id=38]
+[ext_resource path="res://sprites/quit3.png" type="Texture" id=39]
+[ext_resource path="res://sprites/quit2.png" type="Texture" id=40]
+[ext_resource path="res://sprites/resume3.png" type="Texture" id=41]
+[ext_resource path="res://sprites/resume1.png" type="Texture" id=42]
+[ext_resource path="res://sprites/resume2.png" type="Texture" id=43]
+[ext_resource path="res://CanvasLayer.gd" type="Script" id=44]
+[ext_resource path="res://sprites/unstuck4.png" type="Texture" id=45]
+[ext_resource path="res://sounds/Default 9.wav" type="AudioStream" id=46]
+[ext_resource path="res://sprites/checkbox2.png" type="Texture" id=47]
+[ext_resource path="res://sprites/checkbox1.png" type="Texture" id=48]
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Ur die:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -248, -257 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Ur die:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 719, 426 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Ur die:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Bullet:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath(".:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../Overlay:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../Overlay:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.560784 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "die"
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Overlay:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6 ),
+"transitions": PoolRealArray( 0.392292, 0.392292, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.560784 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Overlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("../Ur die:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.757858, -3.36359, 1 ),
+"update": 0,
+"values": [ Vector2( -119.5, -65 ), Vector2( -119.5, -65 ), Vector2( 161, 100.133 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("../Ur die:rect_size")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4 ),
+"transitions": PoolRealArray( 0.757858, -3.36359, 1 ),
+"update": 0,
+"values": [ Vector2( 719, 426 ), Vector2( 719, 426 ), Vector2( 158, 64 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("../Ur die:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("../Bullet:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/7/type = "audio"
+tracks/7/path = NodePath("../../Safe/AudioStreamPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 29 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("../../Navigation2D/Map")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "hurt_anim_start"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "hurt"
+length = 0.182
+step = 0.015
+tracks/0/type = "method"
+tracks/0/path = NodePath("../../Navigation2D/Map")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.075 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "hurt_anim_start"
+}, {
+"args": [  ],
+"method": "hurt_anim_end"
+} ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("../../Safe/AudioStreamPlayer")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 30 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../Overlay:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "transition"
+step = 0.027
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Overlay:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.243, 0.351, 0.459 ),
+"transitions": PoolRealArray( 1, 2.54912, 2, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Overlay:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 22 )
+depth1_floors = Color( 0.498039, 0.270588, 0.45098, 1 )
+depth1_walls = Color( 0.164706, 0.12549, 0.356863, 1 )
+depth2_floors = Color( 0.45098, 0.45098, 0.0705882, 1 )
+depth2_walls = Color( 0, 0.180392, 0.12549, 1 )
+depth3_floors = Color( 0.670588, 0.443137, 0.329412, 1 )
+depth3_walls = Color( 0.419608, 0.12549, 0, 1 )
+depth4_floors = Color( 0.294118, 0.168627, 0.85098, 1 )
+depth4_walls = Color( 0.164706, 0.12549, 0.356863, 1 )
+depth5_floors = Color( 0.258824, 0.321569, 0.360784, 1 )
+depth5_walls = Color( 0.203922, 0.207843, 0.215686, 1 )
+depth6_floors = Color( 0.0392157, 0.113725, 0.227451, 1 )
+depth6_walls = Color( 0, 0, 0, 1 )
+depth7_floors = Color( 0, 0.521569, 0.380392, 1 )
+depth7_walls = Color( 0.0392157, 0.113725, 0.227451, 1 )
+depth8_floors = Color( 0.670588, 0.443137, 0.329412, 1 )
+depth8_walls = Color( 0.164706, 0.12549, 0.356863, 1 )
+depth9_floors = Color( 0.258824, 0.321569, 0.360784, 1 )
+depth9_walls = Color( 0, 0, 0, 1 )
+depth10_floors = Color( 0.564706, 0.211765, 0.054902, 1 )
+depth10_walls = Color( 0, 0.180392, 0.12549, 1 )
+depth11_floors = Color( 0.45098, 0.45098, 0.0705882, 1 )
+depth11_walls = Color( 0.164706, 0.12549, 0.356863, 1 )
+depth12_floors = Color( 0.0156863, 0.341176, 0.603922, 1 )
+depth12_walls = Color( 0.0392157, 0.113725, 0.227451, 1 )
+
+[sub_resource type="AnimatedTexture" id=1]
+frames = 13
+fps = 0.0
+frame_0/texture = ExtResource( 7 )
+frame_1/texture = ExtResource( 13 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 9 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 14 )
+frame_3/delay_sec = 0.0
+frame_4/texture = ExtResource( 12 )
+frame_4/delay_sec = 0.0
+frame_5/texture = ExtResource( 10 )
+frame_5/delay_sec = 0.0
+frame_6/texture = ExtResource( 11 )
+frame_6/delay_sec = 0.0
+frame_7/texture = ExtResource( 15 )
+frame_7/delay_sec = 0.0
+frame_8/texture = ExtResource( 16 )
+frame_8/delay_sec = 0.0
+frame_9/texture = ExtResource( 20 )
+frame_9/delay_sec = 0.0
+frame_10/texture = ExtResource( 19 )
+frame_10/delay_sec = 0.0
+frame_11/texture = ExtResource( 17 )
+frame_11/delay_sec = 0.0
+frame_12/texture = ExtResource( 18 )
+frame_12/delay_sec = 0.0
+
+[sub_resource type="DynamicFont" id=7]
+font_data = ExtResource( 33 )
+
+[sub_resource type="Theme" id=8]
+default_font = SubResource( 7 )
+
+[node name="Game" type="YSort"]
+script = ExtResource( 1 )
+debug = false
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 104, 93 )
+z_index = 1
+max_hp = 12
+
+[node name="Safe" type="Node2D" parent="."]
+pause_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Safe"]
+pause_mode = 2
+root_node = NodePath("../../CanvasLayer/Retry")
+anims/RESET = SubResource( 4 )
+anims/die = SubResource( 3 )
+anims/hurt = SubResource( 5 )
+anims/transition = SubResource( 6 )
+
+[node name="Tween" type="Tween" parent="Safe"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Safe"]
+stream = ExtResource( 29 )
+volume_db = 4.0
+bus = "Fx"
+
+[node name="Transition" type="AudioStreamPlayer" parent="Safe"]
+stream = ExtResource( 46 )
+volume_db = -2.24
+bus = "Fx"
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Bg" type="Sprite" parent="Navigation2D"]
+show_behind_parent = true
+material = ExtResource( 23 )
+position = Vector2( -24, -24 )
+scale = Vector2( 3000, 3000 )
+z_index = -3
+texture = ExtResource( 31 )
+centered = false
+
+[node name="Map" type="TileMap" parent="Navigation2D"]
+material = ExtResource( 23 )
+z_index = -1
+tile_set = ExtResource( 5 )
+cell_size = Vector2( 32, 32 )
+show_collision = true
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( 393223, 2, 0 )
+script = ExtResource( 21 )
+depth_colors = SubResource( 2 )
+hurt_floor_color = Color( 0.521569, 0, 0.121569, 1 )
+hurt_wall_color = Color( 0.188235, 0.0196078, 0.0196078, 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+process_priority = 1
+script = ExtResource( 44 )
+
+[node name="Crosshair" type="Sprite" parent="CanvasLayer"]
+pause_mode = 2
+z_index = 4096
+texture = ExtResource( 3 )
+
+[node name="DebugLabel" type="Label" parent="CanvasLayer"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bullet" type="TextureRect" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -47.9489
+margin_top = 10.1735
+margin_right = -15.9489
+margin_bottom = 42.1735
+texture = ExtResource( 8 )
+expand = true
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hearts" type="TextureRect" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -352.0
+margin_right = 114.0
+margin_bottom = -336.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = SubResource( 1 )
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Overlay" type="TextureRect" parent="CanvasLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0.560784 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 28 )
+expand = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Ur die" type="TextureRect" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -488.0
+margin_top = -437.0
+margin_right = 231.0
+margin_bottom = -11.0
+texture = ExtResource( 24 )
+stretch_mode = 6
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Kills" type="TextureRect" parent="CanvasLayer/Ur die"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -38.0
+margin_top = 60.0
+margin_right = 26.0
+margin_bottom = 100.0
+texture = ExtResource( 32 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Ur die/Kills"]
+margin_left = 66.0
+margin_top = 14.0
+margin_right = 146.0
+margin_bottom = 30.0
+theme = SubResource( 8 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" type="TextureRect" parent="CanvasLayer/Ur die"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.0
+margin_top = 28.0
+margin_right = 30.0
+margin_bottom = 68.0
+texture = ExtResource( 34 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Ur die/Floor"]
+margin_left = 73.0
+margin_top = 14.0
+margin_right = 153.0
+margin_bottom = 31.0
+theme = SubResource( 8 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Retry" type="TextureButton" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -111.0
+margin_top = 49.0
+margin_right = 112.0
+margin_bottom = 89.0
+texture_normal = ExtResource( 26 )
+texture_pressed = ExtResource( 27 )
+texture_hover = ExtResource( 25 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Overlay" type="TextureRect" parent="CanvasLayer/PauseMenu"]
+modulate = Color( 1, 1, 1, 0.560784 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 28 )
+expand = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Resume" type="TextureButton" parent="CanvasLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -47.5
+margin_top = -51.5
+margin_right = 47.5
+margin_bottom = -24.5
+texture_normal = ExtResource( 43 )
+texture_pressed = ExtResource( 42 )
+texture_hover = ExtResource( 41 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stuck" type="TextureButton" parent="CanvasLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -47.5
+margin_top = -13.5
+margin_right = 47.5
+margin_bottom = 13.5
+texture_normal = ExtResource( 36 )
+texture_pressed = ExtResource( 37 )
+texture_hover = ExtResource( 38 )
+texture_disabled = ExtResource( 45 )
+expand = true
+stretch_mode = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="TextureButton" parent="CanvasLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -30.0
+margin_top = 20.5
+margin_right = 30.0
+margin_bottom = 43.5
+texture_normal = ExtResource( 40 )
+texture_pressed = ExtResource( 35 )
+texture_hover = ExtResource( 39 )
+expand = true
+stretch_mode = 3
+
+[node name="Kills" type="TextureRect" parent="CanvasLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 58.0
+margin_top = -92.0
+margin_right = 122.0
+margin_bottom = -52.0
+texture = ExtResource( 32 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenu/Kills"]
+margin_left = 66.0
+margin_top = 14.0
+margin_right = 146.0
+margin_bottom = 30.0
+theme = SubResource( 8 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Floor" type="TextureRect" parent="CanvasLayer/PauseMenu"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -130.0
+margin_top = -92.0
+margin_right = -58.0
+margin_bottom = -52.0
+texture = ExtResource( 34 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PauseMenu/Floor"]
+margin_left = 73.0
+margin_top = 14.0
+margin_right = 153.0
+margin_bottom = 31.0
+theme = SubResource( 8 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CheckBox" type="CheckBox" parent="CanvasLayer/PauseMenu"]
+margin_left = 184.0
+margin_top = 232.0
+margin_right = 298.0
+margin_bottom = 268.0
+theme = SubResource( 8 )
+custom_icons/radio_checked_disabled = ExtResource( 47 )
+custom_icons/radio_checked = ExtResource( 47 )
+custom_icons/checked_disabled = ExtResource( 47 )
+custom_icons/radio_unchecked_disabled = ExtResource( 48 )
+custom_icons/checked = ExtResource( 47 )
+custom_icons/radio_unchecked = ExtResource( 47 )
+custom_icons/unchecked_disabled = ExtResource( 48 )
+custom_icons/unchecked = ExtResource( 48 )
+pressed = true
+text = "music"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="die" from="Player" to="." method="_on_Player_die"]
+[connection signal="hurt" from="Player" to="." method="_on_Player_hurt"]
+[connection signal="new_bullet" from="Player" to="." method="_on_Player_new_bullet"]
+[connection signal="generated" from="Navigation2D/Map" to="." method="_on_TileMap_generated"]
+[connection signal="pressed" from="CanvasLayer/Retry" to="." method="_on_Retry_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Stuck" to="." method="_on_Stuck_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="toggled" from="CanvasLayer/PauseMenu/CheckBox" to="." method="_on_CheckBox_toggled"]

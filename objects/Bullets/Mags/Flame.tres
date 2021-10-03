@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=6 format=2]
+
+[ext_resource path="res://BulletType.gd" type="Script" id=1]
+[ext_resource path="res://objects/Bullets/Flame.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/flame_ui1.png" type="Texture" id=3]
+[ext_resource path="res://sprites/flame_ui2.png" type="Texture" id=4]
+
+[sub_resource type="AnimatedTexture" id=1]
+frames = 2
+fps = 8.0
+frame_0/texture = ExtResource( 3 )
+frame_1/texture = ExtResource( 4 )
+frame_1/delay_sec = 0.0
+
+[resource]
+script = ExtResource( 1 )
+name = "Flame"
+scene = ExtResource( 2 )
+mag_size = 8.0
+shoot_speed = 0.001
+bullets_per_shot = 3
+hud_texture = SubResource( 1 )
+muzzle_flash_all_shots = false
+wait_till_exit = false
+pushback_amount = 35

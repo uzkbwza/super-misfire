@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Explosion 86.wav-3ffabac0ba16c5618d0a76d1d80912d3.sample"
+
+[deps]
+
+source_file="res://sounds/Explosion 86.wav"
+dest_files=[ "res://.import/Explosion 86.wav-3ffabac0ba16c5618d0a76d1d80912d3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

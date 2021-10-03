@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/EnemyCharacter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Zombie.gd" type="Script" id=2]
+[ext_resource path="res://sounds/Default 10 (1).wav" type="AudioStream" id=3]
+[ext_resource path="res://code/VariableSound2D.gd" type="Script" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 9.17104
+height = 22.0838
+
+[node name="Zombie" instance=ExtResource( 1 )]
+pause_mode = 0
+script = ExtResource( 2 )
+max_speed = 170
+max_hp = 2
+damage = 1.0
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="." index="0"]
+stream = ExtResource( 3 )
+max_distance = 500.0
+attenuation = 3.73213
+bus = "Fx"
+script = ExtResource( 4 )
+pitch_variation = 0.2
+
+[node name="Hitbox" type="Area2D" parent="." index="12"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 0, -1 )
+shape = SubResource( 1 )
+
+[node name="HitCycle" type="Timer" parent="." index="13"]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_Hitbox_body_exited"]
+[connection signal="timeout" from="HitCycle" to="." method="_on_HitCycle_timeout"]

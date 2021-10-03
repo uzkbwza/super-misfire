@@ -1,0 +1,19 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://BulletType.gd" type="Script" id=1]
+[ext_resource path="res://objects/Bullets/ShotgunShell.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/shells.png" type="Texture" id=3]
+[ext_resource path="res://sounds/Explosion 108.wav" type="AudioStream" id=4]
+
+[resource]
+script = ExtResource( 1 )
+name = "ShotgunShell"
+scene = ExtResource( 2 )
+mag_size = 1.0
+shoot_speed = 0.08
+bullets_per_shot = 13
+hud_texture = ExtResource( 3 )
+muzzle_flash_all_shots = true
+wait_till_exit = false
+pushback_amount = 6000
+sound = ExtResource( 4 )

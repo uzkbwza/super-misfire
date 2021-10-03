@@ -1,0 +1,30 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://LevelColors.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+depth1_floors = Color( 0, 0, 0, 1 )
+depth1_walls = Color( 0, 0, 0, 1 )
+depth2_floors = Color( 0, 0, 0, 1 )
+depth2_walls = Color( 0, 0, 0, 1 )
+depth3_floors = Color( 0, 0, 0, 1 )
+depth3_walls = Color( 0, 0, 0, 1 )
+depth4_floors = Color( 0, 0, 0, 1 )
+depth4_walls = Color( 0, 0, 0, 1 )
+depth5_floors = Color( 0, 0, 0, 1 )
+depth5_walls = Color( 0, 0, 0, 1 )
+depth6_floors = Color( 0, 0, 0, 1 )
+depth6_walls = Color( 0, 0, 0, 1 )
+depth7_floors = Color( 0, 0, 0, 1 )
+depth7_walls = Color( 0, 0, 0, 1 )
+depth8_floors = Color( 0, 0, 0, 1 )
+depth8_walls = Color( 0, 0, 0, 1 )
+depth9_floors = Color( 0, 0, 0, 1 )
+depth9_walls = Color( 0, 0, 0, 1 )
+depth10_floors = Color( 0, 0, 0, 1 )
+depth10_walls = Color( 0, 0, 0, 1 )
+depth11_floors = Color( 0, 0, 0, 1 )
+depth11_walls = Color( 0, 0, 0, 1 )
+depth12_floors = Color( 0, 0, 0, 1 )
+depth12_walls = Color( 0, 0, 0, 1 )

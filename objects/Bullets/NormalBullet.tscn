@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://objects/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Bullets/NormalBullet.gd" type="Script" id=2]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.46016
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 2.5 )
+
+[node name="NormalBullet" instance=ExtResource( 1 )]
+pause_mode = 0
+script = ExtResource( 2 )
+friction = 400.0
+max_turn_speed = 0
+damage = 2.0
+spread = 0.2
+
+[node name="HurtBox" parent="." index="2"]
+position = Vector2( 3.5, 0.5 )
+z_index = 1
+shape = SubResource( 2 )
+
+[node name="Hitbox" parent="." index="3"]
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2( 1, 0.5 )
+shape = SubResource( 1 )

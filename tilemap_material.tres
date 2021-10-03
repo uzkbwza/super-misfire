@@ -1,0 +1,35 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+const vec4 default_floor_color = vec4(1.,0.98,0.98, 1.);
+const vec4 default_wall_color = vec4(0.647,0.757,0.831, 1.);
+
+uniform vec4 floor_color : hint_color = vec4(1.,0.98,0.98, 1.);
+uniform vec4 wall_color : hint_color = vec4(0.647,0.757,0.831, 1.);
+
+uniform float max_color_distance = 0.01;
+
+bool same_color(vec3 color1, vec3 color2) {
+	return distance(color1, color2) < max_color_distance;
+}
+vec3 replace_color(vec3 rgb) {
+	if (same_color(rgb, default_wall_color.rgb)) return wall_color.rgb;
+	if (same_color(rgb, default_floor_color.rgb)) return floor_color.rgb;
+	return rgb;
+}
+
+void fragment() {
+	vec3 rgb = replace_color(texture(TEXTURE, UV).rgb);
+	COLOR = texture(TEXTURE, UV);
+	COLOR.rgb = rgb;
+	COLOR.a = texture(TEXTURE, UV).a;
+}
+"
+
+[resource]
+shader = SubResource( 2 )
+shader_param/floor_color = Color( 1, 0.98, 0.98, 1 )
+shader_param/wall_color = Color( 0.647, 0.757, 0.831, 1 )
+shader_param/max_color_distance = 0.01

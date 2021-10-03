@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/EnemyCharacter.tscn" type="PackedScene" id=1]
+
+[node name="Dummy" instance=ExtResource( 1 )]
+pause_mode = 0
+max_hp = 10

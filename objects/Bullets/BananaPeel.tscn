@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://objects/Bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Bullets/BananaPeel.gd" type="Script" id=2]
+[ext_resource path="res://sprites/banana.png" type="Texture" id=3]
+[ext_resource path="res://code/VariableSound2D.gd" type="Script" id=4]
+[ext_resource path="res://sounds/Default 8 (1).wav" type="AudioStream" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="BananaPeel" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+friction = 800.0
+max_speed = 500
+lifetime = 5.0
+
+[node name="Sprite" parent="." index="0"]
+frames = SubResource( 1 )
+
+[node name="Hitbox" parent="." index="3"]
+collision_mask = 6
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." index="5"]
+stream = ExtResource( 5 )
+bus = "Fx"
+script = ExtResource( 4 )

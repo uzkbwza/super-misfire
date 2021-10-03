@@ -1,0 +1,66 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fx/OneOffParticle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/muzzle_flash.png" type="Texture" id=2]
+[ext_resource path="res://sounds/Explosion 44.wav" type="AudioStream" id=4]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 38, 33 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 38, 0, 38, 33 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 76, 0, 38, 33 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 114, 0, 38, 33 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 152, 0, 38, 33 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"loop": false,
+"name": "default",
+"speed": 20.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 9.82937
+height = 18.1163
+
+[node name="MuzzleFlash" instance=ExtResource( 1 )]
+position = Vector2( 0, 0.5 )
+z_index = 2
+frames = SubResource( 7 )
+offset = Vector2( 17.184, -0.5 )
+damage = 4
+
+[node name="Sound" parent="." index="0"]
+stream = ExtResource( 4 )
+volume_db = 6.0
+
+[node name="Area2D" type="Area2D" parent="." index="1"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2( 1, -0.5 )
+rotation = 1.5708
+shape = SubResource( 8 )
+
+[node name="Timer" type="Timer" parent="Area2D" index="1"]
+wait_time = 0.048
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Area2D/Timer" to="." method="_on_Timer_timeout"]

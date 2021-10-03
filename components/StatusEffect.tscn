@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://components/StatusEffect.gd" type="Script" id=1]
+
+[node name="StatusEffect" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="LifetimeTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="LifetimeTimer" to="." method="_on_LifetimeTimer_timeout"]

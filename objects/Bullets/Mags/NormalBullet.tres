@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://BulletType.gd" type="Script" id=1]
+[ext_resource path="res://objects/Bullets/NormalBullet.tscn" type="PackedScene" id=2]
+[ext_resource path="res://sprites/base_bullet.png" type="Texture" id=3]
+
+[resource]
+script = ExtResource( 1 )
+name = "NormalBullet"
+scene = ExtResource( 2 )
+mag_size = 3.0
+shoot_speed = 0.08
+bullets_per_shot = 1
+hud_texture = ExtResource( 3 )
+muzzle_flash_all_shots = true
+wait_till_exit = false
+pushback_amount = 50

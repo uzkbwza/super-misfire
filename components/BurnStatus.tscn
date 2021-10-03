@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://components/StatusEffect.tscn" type="PackedScene" id=1]
+[ext_resource path="res://components/BurnStatus.gd" type="Script" id=2]
+[ext_resource path="res://fx/FlameFx.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sounds/Laser_shoot 22 (4).wav" type="AudioStream" id=4]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+uniform vec4 burn_color : hint_color = vec4(1., 0.486, 0.122, 1.);
+uniform bool active = false;
+
+void fragment() {
+	if (active) {
+		COLOR.rgb = burn_color.rgb;
+	} else {
+		COLOR.rgb = texture(TEXTURE, UV).rgb
+	}
+	COLOR.a = texture(TEXTURE, UV).a;
+}"
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = SubResource( 2 )
+shader_param/burn_color = Color( 1, 0.486, 0.122, 1 )
+shader_param/active = false
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "burn"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/active")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 18.6004
+
+[node name="BurnStatus" instance=ExtResource( 1 )]
+material = SubResource( 1 )
+script = ExtResource( 2 )
+lifetime = 2
+
+[node name="FlameFx" parent="." index="0" instance=ExtResource( 3 )]
+z_index = -1
+
+[node name="BurnCycle" type="Timer" parent="." index="2"]
+wait_time = 0.75
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+anims/RESET = SubResource( 4 )
+anims/burn = SubResource( 3 )
+
+[node name="SpreadBox" type="Area2D" parent="." index="4"]
+collision_layer = 0
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpreadBox" index="0"]
+shape = SubResource( 5 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." index="5"]
+stream = ExtResource( 4 )
+volume_db = -3.0
+bus = "Fx"
+
+[connection signal="timeout" from="BurnCycle" to="." method="_on_BurnCycle_timeout"]
+[connection signal="body_entered" from="SpreadBox" to="." method="_on_SpreadBox_body_entered"]

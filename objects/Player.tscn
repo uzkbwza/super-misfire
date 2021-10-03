@@ -1,0 +1,170 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://objects/BaseObject.tscn" type="PackedScene" id=1]
+[ext_resource path="res://objects/Player.gd" type="Script" id=2]
+[ext_resource path="res://sprites/guy.png" type="Texture" id=3]
+[ext_resource path="res://sprites/guy_walk2.png" type="Texture" id=4]
+[ext_resource path="res://sprites/guy_walk1.png" type="Texture" id=5]
+[ext_resource path="res://sprites/gun.png" type="Texture" id=6]
+[ext_resource path="res://components/InputControl.gd" type="Script" id=7]
+[ext_resource path="res://objects/Player/states/Idle.gd" type="Script" id=8]
+[ext_resource path="res://objects/PlayerGun.gd" type="Script" id=9]
+[ext_resource path="res://objects/Bullets/Mags/NormalBullet.tres" type="Resource" id=10]
+[ext_resource path="res://components/Camera2D.gd" type="Script" id=11]
+[ext_resource path="res://code/VariableSound.gd" type="Script" id=12]
+[ext_resource path="res://sounds/Explosion 90.wav" type="AudioStream" id=13]
+[ext_resource path="res://objects/Player/states/Dead.gd" type="Script" id=14]
+[ext_resource path="res://sprites/guy_dead.png" type="Texture" id=15]
+[ext_resource path="res://objects/Player/states/BananaPeelSlip.gd" type="Script" id=16]
+[ext_resource path="res://code/VariableSound2D.gd" type="Script" id=17]
+[ext_resource path="res://sounds/Blip_select 16 (1).wav" type="AudioStream" id=18]
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 3.92051
+height = 3.97562
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walk",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=4]
+radius = 2.99341
+height = 4.34617
+
+[node name="Player" groups=[
+"player",
+] instance=ExtResource( 1 )]
+collision_layer = 2
+script = ExtResource( 2 )
+friction = 450.0
+angular_fric = 0.1
+accel_speed = 2500.0
+max_speed = 190
+max_hp = 10
+
+[node name="Alive" type="Node" parent="StateMachine" index="0"]
+script = ExtResource( 8 )
+
+[node name="BananaPeelSlip" type="Node" parent="StateMachine" index="1"]
+script = ExtResource( 16 )
+
+[node name="Tween" type="Tween" parent="StateMachine/BananaPeelSlip" index="0"]
+
+[node name="Dead" type="Node" parent="StateMachine" index="2"]
+script = ExtResource( 14 )
+
+[node name="HurtBox" parent="." index="1"]
+position = Vector2( 0, 2 )
+z_index = 1
+shape = SubResource( 3 )
+
+[node name="Sprite" type="AnimatedSprite" parent="." index="2"]
+z_as_relative = false
+frames = SubResource( 1 )
+animation = "dead"
+playing = true
+
+[node name="Footstep" type="AudioStreamPlayer2D" parent="." index="3"]
+stream = ExtResource( 18 )
+volume_db = -23.6
+bus = "Fx"
+script = ExtResource( 17 )
+pitch_variation = 0.3
+
+[node name="Gun" type="AnimatedSprite" parent="." index="4"]
+z_index = 1
+frames = SubResource( 2 )
+offset = Vector2( 10, -1 )
+script = ExtResource( 9 )
+default_bullet = ExtResource( 10 )
+reload_speed = 0.4
+shot_buffer_time = 0.2
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="Gun" index="0"]
+stream = ExtResource( 13 )
+volume_db = -8.033
+bus = "Fx"
+script = ExtResource( 12 )
+pitch_variation = 0.0
+
+[node name="Muzzle" type="Position2D" parent="Gun" index="1"]
+position = Vector2( 17, -1.5 )
+
+[node name="ShootTimer" type="Timer" parent="Gun" index="2"]
+wait_time = 0.25
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="Gun" index="3"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BlankTimer" type="Timer" parent="Gun" index="4"]
+process_mode = 0
+wait_time = 0.3
+one_shot = true
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="Gun" index="5"]
+volume_db = 1.0
+bus = "Fx"
+
+[node name="InputControl" type="Node2D" parent="." index="5"]
+script = ExtResource( 7 )
+
+[node name="Camera2D" type="Camera2D" parent="." index="6"]
+pause_mode = 2
+current = true
+process_mode = 0
+smoothing_enabled = true
+smoothing_speed = 10.0
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+script = ExtResource( 11 )
+screen_shake_default_amount = 6.0
+
+[node name="PushBox" type="StaticBody2D" parent="." index="7" groups=[
+"player",
+]]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PushBox" index="0"]
+position = Vector2( 0, 2 )
+shape = SubResource( 4 )
+
+[node name="Tween" type="Tween" parent="." index="8"]
+pause_mode = 2
+
+[node name="InvulnTimer" type="Timer" parent="." index="9"]
+wait_time = 0.16
+one_shot = true
+autostart = true
+
+[connection signal="die" from="." to="StateMachine/Alive" method="_on_Player_die"]
+[connection signal="frame_changed" from="Sprite" to="." method="_on_Sprite_frame_changed"]
+[connection signal="timeout" from="Gun/ShootTimer" to="Gun" method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="Gun/BlankTimer" to="Gun" method="_on_BlankTimer_timeout"]
+[connection signal="timeout" from="InvulnTimer" to="." method="_on_InvulnTimer_timeout"]

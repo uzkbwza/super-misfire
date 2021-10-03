@@ -1,0 +1,55 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://sprites/terrain/base_wall.png" type="Texture" id=1]
+[ext_resource path="res://sprites/terrain/base_floor.png" type="Texture" id=2]
+[ext_resource path="res://sprites/terrain/edge_wall.png" type="Texture" id=3]
+[ext_resource path="res://sprites/terrain/staircase.png" type="Texture" id=4]
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( -15.8393, -16.6006, 16.0689, -16.6006, 16.5108, 15.6612, -15.9277, 15.396 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( -15.8393, -16.6006, 16.0689, -16.6006, 16.5108, 15.6612, -15.9277, 15.396 ) ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 16, 16 )
+
+[node name="TileSet" type="Node2D"]
+
+[node name="Floor" type="Sprite" parent="."]
+position = Vector2( 64, 0 )
+z_index = -2
+texture = ExtResource( 2 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Floor"]
+position = Vector2( -0.176773, 0.441944 )
+navpoly = SubResource( 2 )
+
+[node name="Staircase" type="Sprite" parent="."]
+position = Vector2( 32, 0 )
+z_index = -2
+texture = ExtResource( 4 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Staircase"]
+position = Vector2( -0.176773, 0.441944 )
+navpoly = SubResource( 2 )
+
+[node name="Wall" type="Sprite" parent="."]
+z_index = 1
+texture = ExtResource( 1 )
+offset = Vector2( 0, -15 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall/StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="EdgeWall" type="Sprite" parent="."]
+position = Vector2( -32, 0 )
+z_index = 1
+texture = ExtResource( 3 )
+offset = Vector2( 0, -16 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="EdgeWall"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EdgeWall/StaticBody2D"]
+shape = SubResource( 1 )

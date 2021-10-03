@@ -1,0 +1,108 @@
+[gd_scene load_steps=17 format=2]
+
+[ext_resource path="res://objects/Zombie.tscn" type="PackedScene" id=1]
+[ext_resource path="res://sprites/baddie/baddie_walk_gun1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/baddie/baddie_gun.png" type="Texture" id=3]
+[ext_resource path="res://sprites/baddie/baddie_dead_gun.png" type="Texture" id=4]
+[ext_resource path="res://sprites/baddie/baddie_walk_gun2.png" type="Texture" id=5]
+[ext_resource path="res://code/VariableSound.gd" type="Script" id=6]
+[ext_resource path="res://objects/Gun.gd" type="Script" id=7]
+[ext_resource path="res://sprites/gun.png" type="Texture" id=8]
+[ext_resource path="res://sounds/Explosion 90.wav" type="AudioStream" id=9]
+[ext_resource path="res://objects/Gunman.gd" type="Script" id=10]
+[ext_resource path="res://fx/BaddieMuzzleFlash.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/Bullets/Mags/BaddieBullet.tres" type="Resource" id=12]
+[ext_resource path="res://objects/Alive.gd" type="Script" id=13]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+} ]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 300.0
+
+[node name="Gunman" instance=ExtResource( 1 )]
+script = ExtResource( 10 )
+max_speed = 100
+max_hp = 3
+damage = 0.0
+
+[node name="Alive" parent="StateMachine" index="0"]
+script = ExtResource( 13 )
+
+[node name="Gun" type="AnimatedSprite" parent="." index="1"]
+z_index = 1
+frames = SubResource( 6 )
+offset = Vector2( 10, -1 )
+script = ExtResource( 7 )
+muzzle_flash = ExtResource( 11 )
+default_bullet = ExtResource( 12 )
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="Gun" index="0"]
+stream = ExtResource( 9 )
+volume_db = -8.033
+bus = "Fx"
+script = ExtResource( 6 )
+pitch_variation = 0.0
+
+[node name="Muzzle" type="Position2D" parent="Gun" index="1"]
+position = Vector2( 17, -1.5 )
+
+[node name="ShootTimer" type="Timer" parent="Gun" index="2"]
+wait_time = 0.25
+one_shot = true
+
+[node name="ReloadTimer" type="Timer" parent="Gun" index="3"]
+wait_time = 0.5
+one_shot = true
+
+[node name="BlankTimer" type="Timer" parent="Gun" index="4"]
+process_mode = 0
+wait_time = 0.3
+one_shot = true
+
+[node name="ShotSound" type="AudioStreamPlayer2D" parent="Gun" index="5"]
+bus = "Fx"
+
+[node name="Sprite" parent="." index="3"]
+frames = SubResource( 5 )
+
+[node name="RayCast2D" parent="." index="4"]
+cast_to = Vector2( 300, 0 )
+
+[node name="CollisionShape2D" parent="PlayerSearch" index="0"]
+visible = true
+shape = SubResource( 7 )
+
+[node name="Hitbox" parent="." index="12"]
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+disabled = true
+
+[connection signal="timeout" from="Gun/ShootTimer" to="Gun" method="_on_ShootTimer_timeout"]
+[connection signal="timeout" from="Gun/BlankTimer" to="Gun" method="_on_BlankTimer_timeout"]

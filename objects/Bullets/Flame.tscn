@@ -1,0 +1,48 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://objects/Bullets/Flame.gd" type="Script" id=1]
+[ext_resource path="res://sprites/flame1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/flame4.png" type="Texture" id=3]
+[ext_resource path="res://sprites/flame5.png" type="Texture" id=4]
+[ext_resource path="res://sprites/flame6.png" type="Texture" id=5]
+[ext_resource path="res://sprites/flame2.png" type="Texture" id=6]
+[ext_resource path="res://sprites/flame3.png" type="Texture" id=7]
+[ext_resource path="res://objects/Bullet.tscn" type="PackedScene" id=8]
+[ext_resource path="res://sounds/Laser_shoot 22 (2).wav" type="AudioStream" id=9]
+[ext_resource path="res://code/VariableSound2D.gd" type="Script" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "default",
+"speed": 15.0
+} ]
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 1.34091
+
+[node name="Flame" instance=ExtResource( 8 )]
+script = ExtResource( 1 )
+damage = 1.0
+move_speed = 300
+spread = 0.3
+
+[node name="Sprite" parent="." index="0"]
+frames = SubResource( 1 )
+
+[node name="Hitbox" parent="." index="3"]
+collision_mask = 6
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer2D" parent="." index="5"]
+stream = ExtResource( 9 )
+volume_db = -1.724
+bus = "Fx"
+script = ExtResource( 10 )
+pitch_variation = 0.3
+
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="frame_changed" from="Sprite" to="." method="_on_Sprite_frame_changed"]
