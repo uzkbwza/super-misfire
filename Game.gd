@@ -35,8 +35,6 @@ func descend():
 	Debug.dbg("level_size", level_size)
 	Debug.dbg("walk_length", map.walk_length)
 	change_level(map.current_depth + 1, level_size, true)
-	$"CanvasLayer/Ur die/Floor/Label".text = str(map.current_depth + 1)
-	$CanvasLayer/PauseMenu/Floor/Label.text = str(map.current_depth + 1)
 	pass
 
 func add_kill():
@@ -119,6 +117,8 @@ func change_level(depth, size, effect=false):
 	nav.global_rotation = Rng.range_f(deg2rad(-45), deg2rad(45))
 	map.change_level(depth, level_size)
 	map.set_tile(map.get_map_pos(map.get_world_pos(map.staircase_pos)), Map.Tile.Staircase)
+	$CanvasLayer/PauseMenu/Floor/Label.text = str(depth + 1)
+	$"CanvasLayer/Ur die/Floor/Label".text = str(depth + 1)
 
 
 func explode_walls(pos):

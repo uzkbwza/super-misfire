@@ -40,10 +40,10 @@ max_speed = 120
 max_hp = 20
 damage = 3.0
 
-[node name="HurtBox" parent="." index="1"]
+[node name="HurtBox" parent="." index="2"]
 shape = SubResource( 2 )
 
-[node name="Sprite" parent="." index="2"]
+[node name="Sprite" parent="." index="3"]
 scale = Vector2( 2, 2 )
 frames = SubResource( 5 )
 

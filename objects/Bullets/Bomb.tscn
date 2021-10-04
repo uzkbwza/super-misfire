@@ -68,7 +68,7 @@ lifetime = 4.0
 [node name="Sprite" parent="." index="0"]
 position = Vector2( 0, -1 )
 frames = SubResource( 1 )
-frame = 1
+frame = 4
 playing = true
 
 [node name="HurtBox" parent="." index="2"]
